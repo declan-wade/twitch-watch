@@ -52,7 +52,28 @@ export async function prevVideoPage(cursor) {
       Authorization: `Bearer ${process.env.TWITCH_CLIENT_SECRET}`,
     },
   };
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
 
+async function fetchOauthToken() {
+  const url = `https://id.twitch.tv/oauth2/token`;
+  const options = {
+    method: "POST",
+    headers: {
+      "Client-ID": process.env.TWITCH_CLIENT_ID,
+      Authorization: `Bearer ${process.env.TWITCH_CLIENT_SECRET}`,
+    },
+  };
   try {
     const response = await fetch(url, options);
     if (!response.ok) {

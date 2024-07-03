@@ -62,12 +62,15 @@ export default function Home() {
   }
 
   function mergeVideoData(myCookie: any, apiData: any) {
-    console.warn("merging...", myCookie, apiData);
-    const cookieMap = new Map(
-      myCookie.map((item: any) => [item.video_id, item.play_location]),
-    );
+    // Initialize cookieMap
+    const cookieMap = new Map();
 
-    console.log(cookieMap); // Debugging line to print the cookieMap
+    // Populate cookieMap if myCookie is not null
+    if (myCookie) {
+      myCookie.forEach((item: any) => {
+        cookieMap.set(item.video_id, item.play_location);
+      });
+    }
 
     // Merge the data
     const mergedData = apiData.data.map((video: any) => {
