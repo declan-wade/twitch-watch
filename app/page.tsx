@@ -107,9 +107,10 @@ export default function Home() {
                 radius="lg"
                 className="border-none w-fit"
                 isPressable
-                onPress={() =>
-                  window.open(`/watch/${item.id}/`, "_blank").focus()
-                }
+                onPress={() => {
+                  const newWindow = window.open(`/watch/${item.id}/`, "_blank");
+                  newWindow?.focus();
+                }}
                 fullWidth={false}
               >
                 <CardHeader className=" z-10 top-1 flex-col !items-start">
